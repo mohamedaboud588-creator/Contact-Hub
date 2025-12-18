@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ContactHub - Smart Contact Manager</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <i class="fas fa-address-book"></i>
+          </div>
+          <div class="logo-text">
+            <h1>Contact<span>Hub</span></h1>
+            <p>Smart Contact Manager</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-add" id="openModalBtn">
+            <i class="fas fa-plus"></i>
+            Add Contact
+          </button>
+
+          <button class="icon-btn">
+            <i class="fas fa-bell"></i>
+          </button>
+
+          <button class="icon-btn">
+            <i class="fas fa-gear"></i>
+          </button>
+
+          <div class="profile-img">
+            <img src="./imgs/avatar-4.jpg" alt="Profile" />
+          </div>
+        </div>
+      </header>
+
+      <!-- Stats Cards -->
+      <div class="stats-container">
+        <div class="stat-card total">
+          <div class="stat-content">
+            <div class="stat-icon total">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <p>Total</p>
+              <div class="stat-value" id="totalContacts">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card favorites">
+          <div class="stat-content">
+            <div class="stat-icon favorites">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-info">
+              <p>Favorites</p>
+              <div class="stat-value" id="favoriteContacts">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card emergency">
+          <div class="stat-content">
+            <div class="stat-icon emergency">
+              <i class="fas fa-heart-pulse"></i>
+            </div>
+            <div class="stat-info">
+              <p>Emergency</p>
+              <div class="stat-value" id="emergencyContacts">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- All Contacts Section -->
+        <section class="contacts-section">
+          <div class="section-header">
+            <h2>All Contacts</h2>
+            <p id="contactsCount">Manage and organize your 0 contacts</p>
+          </div>
+
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Search by name, phone, or email..."
+            />
+          </div>
+
+          <div class="contact-list" id="contactList">
+            <!-- Contacts will appear here -->
+            <div class="empty-state" id="emptyState">
+              <div class="empty-icon">
+                <i class="fas fa-address-book"></i>
+              </div>
+              <p>No contacts found</p>
+              <p>Click "Add Contact" to get started</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Favorites Section -->
+          <div class="sidebar-section">
+            <div class="section-title favorites">
+              <div class="title-icon favorites">
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="title-text">
+                <h3>Favorites</h3>
+                <p>Quick access to starred contacts</p>
+              </div>
+            </div>
+
+            <div class="section-content">
+              <div class="favorites-list" id="favoritesList">
+                <div class="empty-sidebar">No favorites yet</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emergency Section -->
+          <div class="sidebar-section">
+            <div class="section-title emergency">
+              <div class="title-icon emergency">
+                <i class="fas fa-heart-pulse"></i>
+              </div>
+              <div class="title-text">
+                <h3>Emergency</h3>
+                <p>Important contacts for urgent calls</p>
+              </div>
+            </div>
+
+            <div class="section-content">
+              <div class="emergency-list" id="emergencyList">
+                <div class="empty-sidebar">No emergency contacts</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Add Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Add New Contact</h3>
+          <button class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form class="modal-body" id="contactForm">
+          <!-- Avatar Upload -->
+          <div class="avatar-upload">
+            <div class="avatar-preview" id="avatarPreview">
+              <div class="avatar-placeholder">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+            <label class="avatar-upload-btn">
+              <i class="fas fa-camera"></i>
+              Upload Photo
+              <input type="file" id="avatarInput" accept="image/*" />
+            </label>
+          </div>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="contactName"
+              placeholder="Enter full name"
+              required
+            />
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label>Phone Number <span class="required">*</span></label>
+            <input
+              type="tel"
+              class="form-control"
+              id="contactPhone"
+              placeholder="+20 123 456 7890"
+              required
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="contactEmail"
+              placeholder="example@email.com"
+            />
+          </div>
+
+          <!-- Address -->
+          <div class="form-group">
+            <label>Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contactAddress"
+              placeholder="Enter address"
+            />
+          </div>
+
+          <!-- Group Dropdown -->
+          <div class="form-group">
+            <label>Group</label>
+            <select class="form-control" id="contactGroup">
+              <option value="">Select a group</option>
+              <option value="family">Family</option>
+              <option value="friends">Friends</option>
+              <option value="work">Work</option>
+              <option value="school">School</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea
+              class="form-control"
+              id="contactNotes"
+              placeholder="Add notes about this contact"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <!-- Checkboxes Side by Side -->
+          <div class="checkbox-group">
+            <label class="checkbox-item favorite">
+              <input type="checkbox" id="isFavorite" />
+              <i class="fas fa-star"></i>
+              <span>Favorite</span>
+            </label>
+
+            <label class="checkbox-item emergency">
+              <input type="checkbox" id="isEmergency" />
+              <i class="fas fa-heart-pulse"></i>
+              <span>Emergency</span>
+            </label>
+          </div>
+
+          <!-- Hidden ID for editing -->
+          <input type="hidden" id="contactId" />
+
+          <!-- Form Actions -->
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" id="cancelBtn">
+              Cancel
+            </button>
+            <button type="submit" class="btn-save">
+              <i class="fas fa-check"></i>
+              Save Contact
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
