@@ -218,8 +218,7 @@ function createContactCard(contact) {
                 }
                 ${
                   contact.isEmergency
-                    ? `<div class="emergency-badge">                            <i class="fas fa-heart-pulse"></i>
-</div>`
+                    ? `<div class="emergency-badge"><i class="fas fa-heart-pulse"></i></div>`
                     : ""
                 }
             </div>
@@ -550,16 +549,3 @@ window.addEventListener("DOMContentLoaded", () => {
   updateUI();
   console.log("Contacts loaded from localStorage:", contacts.length);
 });
-
-// Uncomment the line below to add sample contacts automatically
-// addSampleContacts();
-
-// Optional: Add clear all contacts function (for testing)
-window.clearAllContacts = function () {
-  if (confirm("Are you sure you want to delete ALL contacts?")) {
-    contacts = [];
-    saveContactsToStorage();
-    updateUI();
-    showNotification("All contacts have been cleared");
-  }
-};
